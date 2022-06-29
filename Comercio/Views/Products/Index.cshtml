@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Comercio.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            Foto
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            Detalle
+        </th>
+        <th>
+            Precio
+        </th>
+        <th>
+            Stock
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Enabled)
+        </th>
+        <th>Fecha de Creacion</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="~/Public/products/@(string.IsNullOrEmpty(item.Picture) ? "avatar.png" : item.Picture)" style="height:75px; width:75px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                Categoria: @item.Category.Name <br/>
+                Marca: @item.Brand.Name <br/>
+                Suplidor: @item.Supplier.Name
+            </td>
+            <td>
+                <span style="color:red">@item.ListPrice</span>
+                <span style="color:green">@item.PurchasePrice</span>
+            </td>
+
+            <td>
+                @item.MinStock / @item.MaxStock
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enabled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
